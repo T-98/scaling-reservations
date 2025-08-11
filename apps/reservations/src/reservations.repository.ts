@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { AbstractRepository } from '@app/common/database/abstract.repository';
-import { ReservationDocument } from '../models/reservation.schema';
+import { ReservationDocument } from './models/reservation.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
@@ -9,7 +9,7 @@ export class ReservationsRepository extends AbstractRepository<ReservationDocume
   protected readonly logger = new Logger(ReservationsRepository.name);
 
   constructor(
-    @InjectModel(ReservationsRepository.name)
+    @InjectModel(ReservationDocument.name)
     reservationModel: Model<ReservationDocument>,
   ) {
     super(reservationModel);
