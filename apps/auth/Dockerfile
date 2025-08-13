@@ -29,7 +29,7 @@ RUN pnpm install --prod
 
 COPY --from=development /usr/src/app/dist ./dist
 
-CMD ["node", "dist/apps/reservations/main"]
+CMD ["node", "dist/apps/auth/main"]
 
 #======================================================
 #         DOCKERFILE MULTI-STAGE BUILD CHEAT SHEET
@@ -115,7 +115,7 @@ CMD ["node", "dist/apps/reservations/main"]
 #        |
 #        v
 #+-------------------------------------------+
-#| CMD ["node", "dist/apps/reservations/main"] |
+#| CMD ["node", "dist/apps/auth/main"] |
 #+-------------------------------------------+
 #
 #

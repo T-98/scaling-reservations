@@ -1,13 +1,33 @@
 services:
   reservations:
+    # Build the image for the reservations service
+    build:
+      context: .                                # Start the build from the current folder
+      dockerfile: ./apps/reservations/Dockerfile # Use this specific Dockerfile
+      target: development                        # Use the "development" stage in the Dockerfile
+    command: pnpm run start:dev reservations     # Override default CMD: start app in dev mode (auto-reload)
+    env_file:
+      - ./apps/reservations/.env
+    ports:
+      - '3000:3000'                              # Map localhost:3000 → container:3000 (access app in browser)
+    volumes:
+      - .:/usr/src/app                           # Bind mount: link local folder → container folder
+      # Changes in local code instantly reflect inside the container
+
+  auth:
     build:
       context: .
-      dockerfile: ./apps/reservations/Dockerfile
+      dockerfile: ./apps/auth/Dockerfile
       target: development
-    command: pnpm run start:dev reservations
+    command: pnpm run start:dev auth     # Override default CMD: start app in dev mode (auto-reload)
+    env_file:
+      - ./apps/auth/.env
     ports:
-      - '3000:3000'
+      - '3001:3001'                              # Map localhost:3000 → container:3000 (access app in browser)
     volumes:
-      - .:/usr/src/app
+      - .:/usr/src/app                           # Bind mount: link local folder → container folder
+      # Changes in local code instantly reflect inside the container
+
   mongo:
-    image: mongo
+    image: mongo                                 # Use the official MongoDB image from Docker Hub
+    # No build needed, just pull and run
